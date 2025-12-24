@@ -1,0 +1,269 @@
+.container {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* GIF Container */
+.gifContainer {
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 10;
+}
+
+.spinIn {
+  animation: spinInAnimation 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes spinInAnimation {
+  0% {
+    transform: scale(0) rotate(-360deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.gif {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 105, 180, 0.5);
+  object-fit: cover;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  animation: floatGif 3s ease-in-out infinite;
+}
+
+@keyframes floatGif {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.fallbackEmoji {
+  font-size: 200px;
+  animation: pulseHeart 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.6));
+}
+
+@keyframes pulseHeart {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+/* Text Container */
+.textContainer {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  max-width: 95%;
+}
+
+.fadeInUp {
+  animation: fadeInUpAnimation 1s ease-out;
+}
+
+@keyframes fadeInUpAnimation {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Message */
+.message {
+  color: #ffffff;
+  font-size: clamp(20px, 5vw, 36px);
+  font-weight: 700;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 255, 255, 0.3);
+  padding: 0 20px;
+  max-width: 900px;
+  line-height: 1.5;
+  margin: 0 auto;
+  letter-spacing: 0.5px;
+}
+
+/* Cursor Blink */
+.cursor {
+  animation: blinkAnimation 0.8s infinite;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+@keyframes blinkAnimation {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Floating Hearts Container */
+.heartsContainer {
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floatingHeart {
+  position: absolute;
+  font-size: 32px;
+  animation: floatUpAnimation 4s ease-in-out infinite;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
+}
+
+@keyframes floatUpAnimation {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-150px)
+      translateX(calc(-40px + (100px * var(--random, 0.5)))) rotate(360deg)
+      scale(1);
+    opacity: 0;
+  }
+}
+
+/* Thêm hiệu ứng random cho mỗi heart */
+.floatingHeart:nth-child(odd) {
+  animation-duration: 3.5s;
+}
+
+.floatingHeart:nth-child(even) {
+  animation-duration: 4.5s;
+}
+
+.floatingHeart:nth-child(3n) {
+  font-size: 28px;
+}
+
+.floatingHeart:nth-child(5n) {
+  font-size: 36px;
+}
+
+/* Responsive cho tablet */
+@media (max-width: 768px) {
+  .gif {
+    width: 200px;
+    height: 200px;
+  }
+
+  .fallbackEmoji {
+    font-size: 160px;
+  }
+
+  .gifContainer {
+    margin-bottom: 40px;
+  }
+
+  .message {
+    padding: 0 15px;
+  }
+
+  .floatingHeart {
+    font-size: 28px;
+  }
+}
+
+/* Responsive cho mobile */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .gif {
+    width: 160px;
+    height: 160px;
+  }
+
+  .fallbackEmoji {
+    font-size: 130px;
+  }
+
+  .gifContainer {
+    margin-bottom: 30px;
+  }
+
+  .message {
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+
+  .floatingHeart {
+    font-size: 24px;
+  }
+
+  .floatingHeart:nth-child(3n) {
+    font-size: 20px;
+  }
+
+  .floatingHeart:nth-child(5n) {
+    font-size: 28px;
+  }
+}
+
+/* Responsive cho màn hình nhỏ chiều cao */
+@media (max-height: 600px) {
+  .gif {
+    width: 140px;
+    height: 140px;
+  }
+
+  .fallbackEmoji {
+    font-size: 110px;
+  }
+
+  .gifContainer {
+    margin-bottom: 20px;
+  }
+
+  .message {
+    font-size: 18px;
+  }
+}

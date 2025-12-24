@@ -1,0 +1,353 @@
+.container {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Envelope Wrapper */
+.envelopeWrapper {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  animation: floatIn 1s ease-out;
+}
+
+@keyframes floatIn {
+  from {
+    transform: translateY(-100px) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.envelopeWrapper:hover {
+  transform: scale(1.05);
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Envelope Body */
+.body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Envelope Flap */
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  background: linear-gradient(135deg, #f8b4d9 0%, #ffc0e0 100%);
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top center;
+  transition: transform 1s ease-out;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.envelope.open .flap {
+  transform: rotateX(-180deg);
+}
+
+/* Letter Inside */
+.letter {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  width: calc(100% - 60px);
+  height: calc(100% - 40px);
+  background: linear-gradient(135deg, #ffe6f0 0%, #fff0f7 100%);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.letter.letterPull {
+  transform: translateY(-150px);
+}
+
+.clickHint {
+  font-size: 16px;
+  color: #e91e63;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Content Overlay */
+.contentOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.fadeIn {
+  animation: fadeInAnimation 0.5s ease-in;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Letter Paper - Tối ưu để vừa màn hình */
+.letterPaper {
+  background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+  border-radius: 20px;
+  padding: 30px 25px 25px 25px;
+  max-width: 90vw;
+  max-height: 85vh;
+  width: 550px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.letterPaper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 20px 20px 0 0;
+}
+
+.scaleIn {
+  animation: scaleInAnimation 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes scaleInAnimation {
+  from {
+    transform: scale(0.5) rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Title */
+.title {
+  color: #e91e63;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.1);
+  flex-shrink: 0;
+}
+
+/* Message Content - Cho phép scroll nếu cần */
+.message {
+  color: #333;
+  line-height: 1.7;
+  font-size: clamp(14px, 3.5vw, 16px);
+  text-align: left;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+  margin-bottom: 15px;
+}
+
+.message p {
+  margin-bottom: 14px;
+}
+
+.message p:first-child {
+  font-weight: 600;
+  color: #555;
+}
+
+.signature {
+  text-align: right;
+  margin-top: 18px;
+  font-style: italic;
+  color: #e91e63;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+/* Next Button */
+.nextButton {
+  margin-top: 15px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: clamp(15px, 4vw, 17px);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.nextButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.nextButton:active {
+  transform: translateY(0);
+}
+
+/* Custom Scrollbar */
+.message::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.message::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+}
+
+.message::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Responsive cho tablet */
+@media (max-width: 768px) {
+  .envelopeWrapper {
+    width: 280px;
+    height: 190px;
+  }
+
+  .letterPaper {
+    padding: 25px 20px 20px 20px;
+    max-height: 80vh;
+  }
+
+  .title {
+    margin-bottom: 15px;
+  }
+
+  .message {
+    line-height: 1.6;
+  }
+
+  .message p {
+    margin-bottom: 12px;
+  }
+
+  .nextButton {
+    padding: 12px;
+  }
+}
+
+/* Responsive cho mobile */
+@media (max-width: 480px) {
+  .envelopeWrapper {
+    width: 240px;
+    height: 160px;
+  }
+
+  .letterPaper {
+    padding: 20px 15px 15px 15px;
+    max-height: 75vh;
+  }
+
+  .title {
+    margin-bottom: 12px;
+  }
+
+  .message {
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .message p {
+    margin-bottom: 10px;
+  }
+
+  .signature {
+    margin-top: 12px;
+  }
+
+  .nextButton {
+    margin-top: 12px;
+    padding: 11px;
+  }
+}
+
+/* Responsive cho màn hình rất nhỏ */
+@media (max-height: 600px) {
+  .letterPaper {
+    max-height: 85vh;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .message {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .message p {
+    margin-bottom: 8px;
+  }
+
+  .nextButton {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
